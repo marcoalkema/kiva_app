@@ -1,0 +1,77 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+}
+p, button {
+  font-size: 14px;
+}
+.refresh {
+  margin: 10px 0;
+  background: #ccc;
+}
+.container {
+  height: 120px;
+  width: 545px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  /* visibility: hidden; */
+}
+.profile-image {
+  float: left;
+  height: 116px;
+  margin: 2px;
+  background: #aaa;
+}
+.profile-image img {
+  height: 100%;
+}
+.information-container {
+  float: right;
+  height: 116px;
+  width: 420px;
+  background: #ddd;
+  margin: 2px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.information-container p {
+  width: 100%;
+  padding: 0 30px;
+}
+.information-container button {
+  float: right;
+  margin: 5px;;
+}
+.key {
+  display: inline-block;
+  width: 50px;
+}
+.url {
+  width: 20px;
+}
+.follows-container {
+  height: 50px;
+  width: 380px;
+}
+.follows-text {
+  height: 50px;
+  width: 130px;
+  float: left;
+}
+.follows-text p {
+  margin: 0;
+}
+.follows {
+  height: 50px;
+  width: 270px;
+  display: inline;
+}
+.follows img {
+  margin-right: 7px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.follows img:hover {
+  cursor: pointer;
+}
