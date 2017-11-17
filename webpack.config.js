@@ -9,7 +9,6 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    // publicPath: path.resolve(__dirname, 'assets'),
     filename: 'main.bundle.js'
   },
   module: {
@@ -24,6 +23,13 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'css-loader'
+      },
+      {
+        test: /\.gif$/,
+        loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]'
+          }
       }
     ]
   },
