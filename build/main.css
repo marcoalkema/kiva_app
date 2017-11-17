@@ -75,3 +75,14 @@ p, button {
 .follows img:hover {
   cursor: pointer;
 }
+.chart {
+  height: 400px;
+  width: 900px;
+  margin: 20px 0;
+}
+.spinner {
+  margin: 0, auto;
+}
+svg {
+  position: absolute;
+}
