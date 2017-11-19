@@ -1,13 +1,32 @@
 import * as d3 from 'd3'
 import * as R from 'ramda'
-import { totalAmountPerSector } from './api.js'
+import { totalAmountPerSector, groupTotalAmountBy } from './api.js'
 
-export const renderTotalPerSector = (data) => {
+export const renderTotalPerSector = data => {
   R.compose(
-    renderBarGraph,
+    renderBarGraph('sector', 'amount'),
     R.sortBy(R.prop('sector')),
     convertToD3Data,
-    totalAmountPerSector
+    groupTotalAmountBy(['sector'])
+  )(data)
+}
+
+export const renderTotalPerCountry = data => {
+  R.compose(
+    renderBarGraph('country', 'amount'),
+    R.sortBy(R.prop('country')),
+    convertToD3Data,
+    groupTotalAmountBy(['location', 'country'])
+  )(data)
+}
+
+export const renderTotalPerCategory = category => data => {
+  const categoryName = R.takeLast(1, category)
+  R.compose(
+    renderBarGraph(categoryName, 'amount'),
+    R.sortBy(R.prop(categoryName)),
+    convertToD3Data,
+    groupTotalAmountBy(category)
   )(data)
 }
 
@@ -21,7 +40,10 @@ const convertToD3Data = (data) => {
   )(data)
 }
 
-export const renderBarGraph = (data) => {
+export const renderBarGraph = (xName, yName) => (data) => {
+
+  console.log(xName, yName)
+
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
       width = 900 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom
@@ -42,20 +64,20 @@ export const renderBarGraph = (data) => {
             "translate(" + margin.left + "," + margin.top + ")")
 
   data.forEach(function(d) {
-    d.amount = +d.amount
+    d[yName] = +d[yName]
   })
 
-  x.domain(data.map(function(d) { return d.sector }))
-  y.domain([0, d3.max(data, function(d) { return d.amount })])
+  x.domain(data.map(function(d) { return d[xName] }))
+  y.domain([0, d3.max(data, function(d) { return d[yName] })])
 
   svg.selectAll(".bar")
     .data(data)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d) { return x(d.sector) })
+    .attr("x", function(d) { return x(d[xName]) })
     .attr("width", x.bandwidth())
-    .attr("y", function(d) { return y(d.amount) })
-    .attr("height", function(d) { return height - y(d.amount) })
+    .attr("y", function(d) { return y(d[yName]) })
+    .attr("height", function(d) { return height - y(d[yName]) })
 
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
